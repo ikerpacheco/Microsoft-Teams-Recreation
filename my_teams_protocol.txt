@@ -1,0 +1,74 @@
+Epitech 2023 - Network Programming - My Teams
+
+*****************************************************
+
+MY_TEAMS PROTOCOL (RFC959 Extract)
+
+Introduction
+	In this document you will find the protocol used for the my_teams project. This protocol is based on the RFC959 protocol.
+
+Terminology
+	client: The user-facing application that interacts with the server.
+	server: The backend system that processes client requests and returns responses.
+	user: A person who uses the chat system.
+	team: A group of users who work together on a project or share a common interest.
+	channel: A discussion forum within a team, where users can exchange messages.
+	thread: A sub-discussion within a channel, where users can discuss a specific topic.
+	sub resource: A resource that is owned by another resource, for example, a thread is a sub resource of a channel.
+
+These are the commands available for this project:
+	/help : show help
+	/login [“user_name”] : set the user_name used by client
+	/logout : disconnect the client from the server
+	/users : get the list of all users that exist on the domain
+	/user [“user_uuid”] : get details about the requested user
+	/send [“user_uuid”] [“message_body”]: send a message to specific user
+	/messages [“user_uuid”]: list all messages exchanged with the specified user
+	/subscribe [“team_uuid”]: subscribe to the events of a team and its sub directories (enable reception of all events from a team)
+	/subscribed ?[“team_uuid”]: list all subscribed teams or list all users subscribed to a team
+	/unsubscribe [“team_uuid”]: unsubscribe from a team
+	/use ?[“team_uuid”] ?[“channel_uuid”] ?[“thread_uuid”] : Sets the command context to a team/channel/thread
+	/create : based on the context, create the sub resource (see below)
+	/list : based on the context, list all the sub resources (see below)
+	/info : based on the context, display details of the current resource (see below)
+
+Command-Reply Sequences
+
+The server reply is defined to contain the 3-digit code, followed by Coma<,>, followed by one line of text, and terminated by the Telnet end-of-line code <CRLF>.
+
+The 3-digit code is defined as follows:
+	200		User successfully logged in.
+	201		User successfully logged out.
+
+	202 	Private message received.
+	203 	Thread reply received.
+	204 	Event team created.
+	205 	Event channel created.
+	206 	Event thread created.
+
+	208 	Prints the information of a specific thread.
+	209 	Prints information of a specific user.
+
+	210		Prints the list of all users.
+	211		Prints the list of all teams.
+	212		Prints the list of all channels.
+	213		Prints the list of all threads.
+	214		Prints the list of all replies.
+	
+	220		Prints the list of all private messages with other user.
+
+	300 	Error: unknown team.
+	301 	Error: unknown channel.
+	302 	Error: unknown thread.
+	303 	Error: unknown user.
+	304 	Error: unathorized action.
+	305 	Error: already exists.ç
+
+	320 	Prints a message when a team has been successfully created.
+	321 	Prints a message when a channel has been successfully created.
+	322 	Prints a message when a thread has been successfully created.
+	323 	Prints a message when a reply has been successfully created.
+
+	330 	Prints a message when a user is successfully subscribed to a team.
+	331 	Prints a message when a user is successfully unsubscribed from a team.
+
